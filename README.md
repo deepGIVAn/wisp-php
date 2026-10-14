@@ -47,7 +47,7 @@ Laravel is great — until you only need a router, a few controllers, and a data
 ## Quick start
 
 ```bash
-git clone https://github.com/YOUR_USER/wisp-php.git
+git clone https://github.com/deepgivan/wisp-php.git
 cd wisp-php
 cp .env.example .env
 php composer.phar install   # or: composer install

@@ -9,7 +9,7 @@
 ## Get the project
 
 ```bash
-git clone https://github.com/YOUR_USER/wisp-php.git
+git clone https://github.com/deepgivan/wisp-php.git
 cd wisp-php
 cp .env.example .env
 php composer.phar install
