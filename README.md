@@ -57,9 +57,6 @@ php -S localhost:8000 -t public public/router.php
 
 Open **http://localhost:8000** — you’re in.
 
-> **Repo name on GitHub:** `wisp-php`  
-> Replace `YOUR_USER` with your GitHub username after you publish.
-
 ## Hello world
 
 **Route** — `routes/web.php`
