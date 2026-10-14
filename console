@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/bootstrap.php';
+
+use Core\Migrator;
+
+$command = $argv[1] ?? null;
+$arg = $argv[2] ?? null;
+
+$migrator = new Migrator();
+
+match ($command) {
+    'migrate' => $migrator->migrate(),
+    'migrate:status' => $migrator->status(),
+    'migrate:rollback' => $migrator->rollback(),
+    'migrate:fresh' => $migrator->fresh(),
+    'db:create' => $migrator->ensureDatabase(),
+    'make:migration' => (static function () use ($migrator, $arg): void {
+        if ($arg === null || $arg === '') {
+            fwrite(STDERR, "Usage: php console make:migration create_users_table\n");
+            exit(1);
+        }
+        $migrator->make($arg);
+    })(),
+    default => (static function () use ($command): void {
+        echo <<<TXT
+Wisp console
+
+
+Usage:
+  php console migrate              Create DB if missing, run pending migrations
+  php console migrate:status       Show ran / pending migrations
+  php console migrate:rollback     Undo last migration batch
+  php console migrate:fresh        Drop migrated tables & re-run all
+  php console db:create            Only create SQLite file / MySQL database
+  php console make:migration name  Create a new migration file
+
+TXT;
+        if ($command !== null && $command !== 'help' && $command !== '--help') {
+            fwrite(STDERR, "Unknown command: {$command}\n");
+            exit(1);
+        }
+    })(),
+};
